@@ -29,6 +29,12 @@
     ['Sistemas a medida', '<path d="M18 13 7 24l11 11M30 13l11 11-11 11"/><path d="M27 9 21 39" class="ac"/>'],
     ['Desarrollo de páginas web', '<rect x="5" y="9" width="38" height="30" rx="4"/><path d="M5 17h38"/><circle cx="10.5" cy="13" r="1.1" class="ac"/><circle cx="15" cy="13" r="1.1" class="ac"/><path d="M12 26h12M12 31h8M30 25h7v8h-7z"/>']
   ];
+  var MINI = [
+    ['WhatsApp', '<path class="fl" d="M24 5.5A18.4 18.4 0 0 0 8.2 33.4L5.5 42.5l9.4-2.5A18.4 18.4 0 1 0 24 5.5zm0 3.4a15 15 0 1 1-7.7 27.9l-.6-.3-5.4 1.4 1.5-5.2-.4-.6A15 15 0 0 1 24 8.9zm-6.3 7.3c-.4 0-1 .1-1.5.7s-2 1.9-2 4.6 2 5.3 2.2 5.7c.3.4 3.9 6 9.5 8.2 4.7 1.8 5.7 1.5 6.7 1.4s3.3-1.3 3.7-2.7c.5-1.3.5-2.4.3-2.7-.1-.2-.5-.4-1.1-.7l-3.8-1.8c-.5-.2-.9-.3-1.3.3l-1.8 2.2c-.3.4-.6.4-1.2.1-.6-.3-2.4-.9-4.5-2.8-1.7-1.5-2.8-3.3-3.1-3.9-.3-.6 0-.9.3-1.1l.8-1c.3-.3.4-.6.6-.9.2-.4.1-.7 0-1l-1.7-4.2c-.5-1.1-.9-1-1.3-1z"/>'],
+    ['Instagram', '<rect x="7" y="7" width="34" height="34" rx="10"/><circle cx="24" cy="24" r="8"/><circle cx="34.2" cy="13.8" r="2" class="fl"/>'],
+    ['Facebook', '<path class="fl" d="M27.5 43V27.4h5.3l.8-6.1h-6.1v-3.9c0-1.8.5-3 3-3h3.2V8.9c-.6-.1-2.5-.3-4.7-.3-4.6 0-7.8 2.8-7.8 8v4.6H16v6.1h5.2V43z"/>'],
+    ['Agente IA', '<rect x="9" y="15" width="30" height="23" rx="7"/><path d="M24 15V9"/><circle cx="24" cy="7.5" r="2.5" class="fl"/><circle cx="18" cy="26" r="2.8" class="fl"/><circle cx="30" cy="26" r="2.8" class="fl"/><path d="M19.5 32.5h9M5 23v7M43 23v7"/>']
+  ];
   var R = 134;
   var world = null;
   var JUJUY = [-24.19, -65.30];
@@ -75,8 +81,9 @@
     var orbitsFront = el('g', { class: 'w-orb f' }, front);
     var itemsFront = el('g', {}, front);
 
-    var ORB = [{ rx: 228, ry: 62, tilt: -16, speed: .00020 }, { rx: 216, ry: 72, tilt: 28, speed: -.00016 }];
+    var ORB = [{ rx: 228, ry: 62, tilt: -16, speed: .00020 }, { rx: 216, ry: 72, tilt: 28, speed: -.00016 }, { rx: 186, ry: 196, tilt: 0, speed: .00011, sinLinea: true }];
     ORB.forEach(function (o) {
+      if (o.sinLinea) return;
       el('ellipse', { rx: o.rx, ry: o.ry, transform: 'rotate(' + o.tilt + ')' }, orbitsBack);
       el('path', { d: 'M ' + o.rx + ' 0 A ' + o.rx + ' ' + o.ry + ' 0 0 1 ' + (-o.rx) + ' 0', transform: 'rotate(' + o.tilt + ')' }, orbitsFront);
     });
@@ -86,6 +93,13 @@
       var inner = el('g', { transform: 'translate(-13.5 -13.5) scale(.5625)', class: 'ico' }, g);
       inner.innerHTML = ic[1];
       return { g: g, name: ic[0], ring: k % 2, phase: Math.floor(k / 2) * (Math.PI / 2) + (k % 2) * .8, front: false };
+    });
+    MINI.forEach(function (ic, k) {
+      var g = el('g', { class: 'w-item w-mini' }, itemsBack);
+      el('circle', { r: 15, class: 'med-mini' }, g);
+      var inner = el('g', { transform: 'translate(-9.5 -9.5) scale(.396)', class: 'ico-mini' }, g);
+      inner.innerHTML = ic[1];
+      items.push({ g: g, name: ic[0], ring: 2, phase: k * (Math.PI / 2) + .45, front: false, mini: true });
     });
 
     var T = window.RZ_TIERRA || [], tierra = [];
@@ -187,10 +201,10 @@
       var x = lx * Math.cos(tr) - ly * Math.sin(tr), y = lx * Math.sin(tr) + ly * Math.cos(tr);
       var isFront = s > 0;
       if (isFront !== it.front) { it.front = isFront; (isFront ? w.itemsFront : w.itemsBack).appendChild(it.g); }
-      var sc = (.78 + .3 * (s + 1) / 2) * (0.4 + .6 * k);
+      var sc = (.78 + .3 * (s + 1) / 2) * (0.4 + .6 * k) * (it.mini ? .85 : 1);
       it.g.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') scale(' + sc.toFixed(3) + ')');
       it.g.setAttribute('opacity', ((isFront ? 1 : .55) * k).toFixed(2));
-      if (!best || s > best.s) best = { s: s, it: it };
+      if (!it.mini && (!best || s > best.s)) best = { s: s, it: it };
     });
     if (capEl && best && capEl.dataset.n !== best.it.name) {
       capEl.dataset.n = best.it.name; capEl.textContent = best.it.name;

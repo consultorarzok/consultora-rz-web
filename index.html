@@ -87,15 +87,14 @@ p{margin:0 0 1em;max-width:62ch;text-wrap:pretty}
 .nota{display:block;font:700 clamp(1.35rem,2.6vw,1.9rem)/calc(var(--cell)*2) var(--f-hand);color:var(--navy);margin:0;max-width:none}
 .tareas{list-style:none;margin:0;padding:0}
 .tarea{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:1.5rem;min-height:calc(var(--cell)*2);position:relative}
-.t{font:400 clamp(1.15rem,2.1vw,1.55rem)/1.2 var(--f-hand);color:var(--ink);justify-self:start;
-  background:linear-gradient(var(--navy),var(--navy)) no-repeat 0 58%/100% .12em;
-  transition:color .5s,background-size .6s var(--ease)}
+.t{font:400 clamp(1.15rem,2.1vw,1.55rem)/1.35 var(--f-hand);color:var(--ink);justify-self:start;transition:color .5s}
+.t>span{background:linear-gradient(var(--navy),var(--navy)) no-repeat 0 43%/100% .1em;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size .7s var(--ease)}
 .r{font:600 1.02rem/1.25 var(--f-body);color:var(--night-2);display:inline-flex;align-items:center;gap:.55rem;justify-self:start;
   background:linear-gradient(transparent 14%,rgba(0,180,216,.34) 14% 90%,transparent 90%);padding:.1rem .6rem .1rem .3rem;border-radius:2px;transform:rotate(-.6deg)}
 .r svg{width:1.15rem;height:1.15rem;flex:none;color:var(--navy)}
 .cierre{font:700 clamp(1.2rem,2.3vw,1.6rem)/calc(var(--cell)*2) var(--f-hand);color:var(--navy);margin:0;max-width:none}
 /* animación: una sola secuencia, cuando JS marca .go. Sin JS o con movimiento reducido queda el estado final. */
-.js .tarea:not(.hecha) .t{background-size:0 .12em}
+.js .tarea:not(.hecha) .t>span{background-size:0 .1em}
 .js .tarea:not(.hecha) .r{opacity:0;transform:translateX(-14px) rotate(-.6deg)}
 .tarea .r{transition:opacity .5s,transform .6s var(--ease)}
 .tarea.hecha .t{color:var(--pencil)}
@@ -250,6 +249,9 @@ html.intro-open{overflow:hidden}
 .med{fill:#0e2240;stroke:#48cae4;stroke-width:2.2}
 .ico{fill:none;stroke:#fff;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
 .ico .ac{stroke:#48cae4}.ico circle.ac{fill:#48cae4}
+.med-mini{fill:rgba(8,20,40,.55);stroke:rgba(255,255,255,.35);stroke-width:1.2}
+.ico-mini{fill:none;stroke:#fff;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}
+.ico-mini .fl{fill:#fff;stroke:none}
 .w-floor{fill:rgba(0,0,0,.4);filter:blur(5px)}
 @keyframes mFade{from{opacity:0}}
 @keyframes mUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -270,14 +272,13 @@ html.intro-open{overflow:hidden}
 
 /* ===== equipo en círculo ===== */
 .equipo{text-align:center;justify-items:center}
-.foto{position:relative;width:min(74vw,320px);aspect-ratio:1;margin:1.2rem auto 4.2rem}
+.foto{position:relative;width:min(60vw,270px);aspect-ratio:1;margin:1.4rem auto 4.2rem}
 .foto .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--cyan),var(--navy),var(--cyan-l),var(--navy-2),var(--cyan));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 7px),#000 calc(100% - 6px));mask:radial-gradient(farthest-side,transparent calc(100% - 7px),#000 calc(100% - 6px));transition:transform 1.2s var(--ease)}
-.foto .orb{position:absolute;inset:-18px;border-radius:50%;border:1.5px dashed rgba(0,120,143,.55);transform:rotate(-38deg);transition:transform 1.4s var(--ease)}
+.foto .orb{position:absolute;inset:-18px;border-radius:50%;border:1.5px dashed rgba(0,120,143,.55);animation:spin 16s linear infinite}
 .foto .orb i{position:absolute;top:-6.5px;left:50%;width:13px;height:13px;margin-left:-6.5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 5px rgba(0,180,216,.25)}
 .foto img{position:absolute;inset:14px;width:calc(100% - 28px);height:calc(100% - 28px);border-radius:50%;object-fit:cover;border:5px solid #fff;box-shadow:0 20px 40px -22px rgba(26,54,93,.7);outline:0;margin:0;aspect-ratio:auto;filter:none}
 .foto .cargo{position:absolute;left:50%;bottom:-2.3rem;transform:translateX(-50%);background:var(--navy);color:#fff;font:600 .9rem/1.3 var(--f-body);padding:.65rem 1.2rem;border-radius:999px;width:max-content;max-width:112%;text-align:center;box-shadow:0 12px 24px -12px rgba(26,54,93,.8)}
 .foto:hover .ring{transform:rotate(180deg)}
-.foto:hover .orb{transform:rotate(60deg)}
 .persona p{margin-inline:auto}
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -340,6 +341,16 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
   .obra{grid-template-columns:1fr}.obra:nth-of-type(even) .pegado{order:0}
   svg.mapa{height:min(86vh,640px)}
 }
+@media (max-width:700px){
+  .equipo{grid-template-columns:1fr 1fr!important;gap:1.2rem .9rem}
+  .foto{width:min(36vw,150px);margin:1rem auto 3.6rem}
+  .foto .orb{inset:-10px}.foto .orb i{width:9px;height:9px;top:-5px;margin-left:-4.5px}
+  .foto .ring{-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px))}
+  .foto img{inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);border-width:3px}
+  .foto .cargo{font-size:.7rem;line-height:1.25;padding:.45rem .7rem;bottom:-2.6rem;max-width:122%;width:122%}
+  .persona h3{font-size:1.15rem;margin-top:.4rem}
+  .persona p{font-size:.88rem;line-height:1.5}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-delay:0s!important;transition-delay:0s!important}
@@ -394,11 +405,11 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
     <div class="wrap">
       <p class="nota">¿Cuántas horas al mes se van en esto?</p>
       <ul class="tareas" id="tareas">
-        <li class="tarea"><span class="t">Contestar “¿cuánto sale?” por décima vez</span><span class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg>Responde el Agente IA, las 24 h</span></li>
-        <li class="tarea"><span class="t">Pasar los turnos del chat a la agenda</span><span class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg>Se agendan solos en tu calendario</span></li>
-        <li class="tarea"><span class="t">Revisar comprobantes de pago uno por uno</span><span class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg>Los valida el Agente IA</span></li>
-        <li class="tarea"><span class="t">Ordenar las consultas que llegan a mano</span><span class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg>Se clasifican automáticamente</span></li>
-        <li class="tarea"><span class="t">Acordarte de avisar antes de cada reunión</span><span class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg>Recordatorios que salen solos</span></li>
+        <li class="tarea"><span class="t"><span>Contestar “¿cuánto sale?” por décima vez</span></span><span class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg>Responde el Agente IA, las 24 h</span></li>
+        <li class="tarea"><span class="t"><span>Pasar los turnos del chat a la agenda</span></span><span class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg>Se agendan solos en tu calendario</span></li>
+        <li class="tarea"><span class="t"><span>Revisar comprobantes de pago uno por uno</span></span><span class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg>Los valida el Agente IA</span></li>
+        <li class="tarea"><span class="t"><span>Ordenar las consultas que llegan a mano</span></span><span class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg>Se clasifican automáticamente</span></li>
+        <li class="tarea"><span class="t"><span>Acordarte de avisar antes de cada reunión</span></span><span class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg>Recordatorios que salen solos</span></li>
       </ul>
       <p class="cierre">Transformamos esas horas en productividad real.</p>
     </div>
@@ -500,12 +511,12 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
       </div>
     </article>
     <article class="obra" data-rv>
-      <figure class="pegado"><img src="assets/crm-pierre.jpg" alt="Panel del CRM del Instituto Pierre: resumen del mes con derivados, comprobantes sin revisar y estado de atención" width="1000" height="563"><figcaption>Captura con datos de ejemplo.</figcaption></figure>
+      <figure class="pegado"><img src="assets/crm-demo.jpg" alt="Panel de un CRM a medida: resumen del mes con consultas derivadas, comprobantes sin revisar y estado de atención" width="1000" height="563"><figcaption>Demo con marca y datos de ejemplo.</figcaption></figure>
       <div>
         <span class="tag">CRM a medida</span>
-        <h3>CRM del Instituto Pierre</h3>
-        <p>Un panel propio para el equipo del instituto: todas las consultas que llegan por WhatsApp, qué curso le interesa a cada persona, los comprobantes para revisar, los casos derivados y las métricas de cada mes. El Agente IA responde y el equipo ve todo en un solo lugar.</p>
-        <p>Armamos CRMs así para cualquier organización que atienda muchas consultas.</p>
+        <h3>Tu equipo, todo en un solo lugar</h3>
+        <p>Un panel propio para tu organización: todas las consultas que llegan por WhatsApp, quién escribió y qué necesita, los comprobantes para revisar, los casos derivados y las métricas de cada mes. El Agente IA responde y el equipo ve todo, ordenado.</p>
+        <p>Cada CRM se diseña con la marca y los procesos de cada cliente.</p>
       </div>
     </article>
     <article class="obra" data-rv>
@@ -578,7 +589,7 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
       <p>Trabajamos con clientes en toda la región del NOA, llevando automatización inteligente a donde más se necesita.</p>
       <p class="loc">San Salvador de Jujuy, Argentina</p>
     </div>
-    <figure><svg class="mapa" viewBox="-20 -20 516 1040" role="img" aria-label="Mapa de Argentina con el Noroeste destacado y Jujuy iluminada">
+    <figure><svg class="mapa" viewBox="-20 -135 516 1155" role="img" aria-label="Mapa de Argentina con el Noroeste destacado y Jujuy iluminada">
 <defs><radialGradient id="mgJ" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7ff0ff"/><stop offset="1" stop-color="#00b4d8"/></radialGradient><filter id="mgGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter></defs>
 <g class="m-prov">
 <path class="p" style="--i:0" pathLength="1" d="M356.8 380.1L356.0 376.7L359.6 372.5L361.4 371.7L357.4 363.3L358.6 343.6L359.2 342.0L364.8 340.8L365.5 339.6L364.1 323.3L366.4 317.1L364.3 313.5L365.2 311.3L364.1 305.1L367.1 303.3L369.0 297.8L367.2 292.1L371.4 284.5L373.2 274.1L370.8 266.8L364.1 256.4L354.9 253.8L351.4 255.5L345.5 255.9L341.8 259.0L336.2 257.7L332.0 258.9L331.8 270.4L316.3 295.4L312.9 299.8L309.3 300.5L306.8 305.2L306.3 316.2L304.4 326.5L310.2 341.3L315.9 347.2L312.8 350.2L310.4 356.1L308.1 356.8L305.3 354.6L299.7 355.1L282.2 379.0L243.7 379.4L245.2 438.8L244.0 527.1L244.1 567.0L251.0 567.8L253.9 569.3L256.3 571.9L258.2 576.7L270.4 570.4L273.4 564.7L272.6 562.4L267.7 558.7L265.4 555.4L268.4 551.5L269.6 543.6L273.3 539.9L275.3 530.4L274.5 527.1L269.0 522.7L269.0 516.5L267.1 512.3L268.4 510.0L271.2 509.9L274.9 511.9L276.2 515.6L275.3 520.1L277.9 521.8L279.6 520.5L280.3 517.7L283.6 515.8L308.0 514.3L350.4 504.7L368.4 497.9L380.1 490.5L381.2 484.0L391.4 470.8L400.1 456.3L400.8 453.9L399.1 437.5L397.1 436.9L394.9 437.9L390.9 436.1L386.4 431.9L384.4 428.3L383.9 420.5L388.7 412.1L388.7 410.2L385.1 404.2L371.7 393.6L361.4 389.2L359.8 391.1L357.0 391.6L353.0 389.6L351.9 384.6L353.8 381.7Z"><title>Buenos Aires</title></path>
@@ -729,7 +740,7 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
 <circle style="--d:2.10s" cx="259.0" cy="431.7" r="3.2"/>
 </g>
 <g class="m-cap" transform="translate(199.7 76.9)"><circle class="halo" r="26" fill="url(#mgJ)" filter="url(#mgGlow)"/><circle class="ring r1" r="10"/><circle class="ring r2" r="10"/><circle class="dot" r="7" fill="#fff"/></g>
-<g class="m-lab"><path d="M213.7 68.9L259.7 24.9H468.0"/><text x="464.0" y="16.9" text-anchor="end">San Salvador de Jujuy</text><text class="sub" x="464.0" y="46.9" text-anchor="end">Acá empezamos</text></g>
+<g class="m-lab"><path d="M208.7 67.9L243.7 -38H468.0"/><text x="466.0" y="-84" text-anchor="end">San Salvador de Jujuy</text><text class="sub" x="466.0" y="-52" text-anchor="end">Acá empezamos</text></g>
 </svg><ul class="leyenda"><li><i></i>Noroeste argentino</li><li><i class="j"></i>Jujuy, nuestra base</li></ul></figure>
   </div>
 </section>
