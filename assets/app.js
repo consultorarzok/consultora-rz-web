@@ -218,7 +218,7 @@
     var ov = $('#mundo'); if (!ov) return enter(true);
     var stage = $('#mundo-stage'), cap = $('#mundo-cap'), btn = $('#mundo-enter');
     world = buildWorld(stage);
-    var inert = $$('header.top, main, footer');
+    var inert = $$('.skip, header.top, main, footer');
     inert.forEach(function (e) { e.setAttribute('inert', ''); });
     var t0 = performance.now(), raf = 0, running = true;
     function frame(now) {
@@ -239,7 +239,11 @@
       startHero();
     }
     btn.addEventListener('click', go);
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !enterDone) go(); });
+    document.addEventListener('keydown', function (e) {
+      if (enterDone) return;
+      if (e.key === 'Escape') go();
+      else if (e.key === 'Tab') { e.preventDefault(); btn.focus(); }
+    });
   }
   function enter() { if (!enterDone) { enterDone = true; startHero(); } }
 
