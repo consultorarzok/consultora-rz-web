@@ -331,6 +331,116 @@
     });
   }
 
+
+  /* ------------------------------------------------------------------
+     Videos de las obras: suenan nunca, arrancan al verse y paran al salir
+     ------------------------------------------------------------------ */
+  var vids = $$('video.vid');
+  if (vids.length && 'IntersectionObserver' in window && !reduce) {
+    var vio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause();
+      });
+    }, { threshold: .45 });
+    vids.forEach(function (v) { vio.observe(v); });
+  }
+
+  /* ------------------------------------------------------------------
+     Mapeo: Argentina que se va relevando punto por punto
+     ------------------------------------------------------------------ */
+  (function () {
+    var box = $('#mapeo'); var src = $('.mapa .m-prov');
+    if (!box || !src) return;
+    var gProv = $('#mp-prov'), gLinks = $('#mp-links'), gPts = $('#mp-pts'), scan = $('#mp-scan'), cross = $('#mp-cross');
+    var svg = gProv.ownerSVGElement, pos = $('#mp-pos'), log = $('#mp-log'), cnt = $('#mp-n'), wrap = $('.mp-map', box);
+    var LON0 = -73.9, LAT0 = -21.6, S = 1000 / (LAT0 + 55.3), K = Math.cos(38.5 * Math.PI / 180);
+    var X = function (lon) { return (lon - LON0) * K * S; }, Y = function (lat) { return (LAT0 - lat) * S; };
+    var provs = [];
+    $$('path.p', src).forEach(function (p) {
+      var t = p.querySelector('title'), n = t ? t.textContent : '';
+      if (n === 'Islas Malvinas') return;
+      var q = el('path', { d: p.getAttribute('d'), 'class': 'mp' + (n === 'Jujuy' ? ' jujuy' : '') }, gProv);
+      provs.push({ n: n, e: q });
+    });
+    var CIU = [['San Salvador de Jujuy', -24.19, -65.30, 'Jujuy'], ['Salta', -24.79, -65.41, 'Salta'], ['Formosa', -26.18, -58.17, 'Formosa'], ['Resistencia', -27.46, -58.98, 'Chaco'], ['Posadas', -27.37, -55.90, 'Misiones'],
+      ['San Miguel de Tucumán', -26.82, -65.22, 'Tucumán'], ['Santiago del Estero', -27.78, -64.26, 'Santiago del Estero'], ['Catamarca', -28.47, -65.78, 'Catamarca'], ['La Rioja', -29.41, -66.86, 'La Rioja'], ['San Juan', -31.54, -68.52, 'San Juan'],
+      ['Paraná', -31.73, -60.52, 'Entre Ríos'], ['Córdoba', -31.42, -64.18, 'Córdoba'], ['Mendoza', -32.89, -68.83, 'Mendoza'], ['San Luis', -33.30, -66.34, 'San Luis'], ['Rosario', -32.95, -60.64, 'Santa Fe'], ['Buenos Aires', -34.60, -58.38, 'Buenos Aires'],
+      ['Santa Rosa', -36.62, -64.29, 'La Pampa'], ['Mar del Plata', -38.00, -57.55, 'Buenos Aires'], ['Neuquén', -38.95, -68.06, 'Neuquén'], ['Bahía Blanca', -38.72, -62.27, 'Buenos Aires'], ['Viedma', -40.81, -62.99, 'Río Negro'], ['Trelew', -43.25, -65.31, 'Chubut'],
+      ['Comodoro Rivadavia', -45.87, -67.50, 'Chubut'], ['Río Gallegos', -51.62, -69.22, 'Santa Cruz'], ['Ushuaia', -54.80, -68.30, 'Tierra del Fuego']];
+    var made = [], timer = 0, raf = 0;
+    function fmt(v) { return (v < 0 ? '−' : '') + Math.abs(v).toFixed(2) + '°'; }
+    function provDe(x, y) {
+      var pt = new DOMPoint(x, y);
+      for (var i = 0; i < provs.length; i++) { try { if (provs[i].e.isPointInFill(pt)) return provs[i]; } catch (e) {} }
+      return null;
+    }
+    function add(nombre, lat, lon, x, y, quiet, prov) {
+      var pr = provDe(x, y);
+      if (!pr && !prov) return false;
+      if (pr) pr.e.classList.add('on');
+      var pn = prov || pr.n;
+      var prev = null, dmin = 1e9;
+      made.forEach(function (m) { var d = Math.hypot(m.x - x, m.y - y); if (d < dmin) { dmin = d; prev = m; } });
+      if (prev) {
+        var l = el('path', { d: 'M' + prev.x.toFixed(1) + ' ' + prev.y.toFixed(1) + 'L' + x.toFixed(1) + ' ' + y.toFixed(1) }, gLinks);
+        var len = Math.ceil(dmin); l.style.setProperty('--l', len); if (quiet) l.style.animation = 'none', l.style.strokeDashoffset = 0;
+      }
+      if (!quiet) el('circle', { 'class': 'r', cx: x, cy: y, r: 7 }, gPts);
+      var cap = !made.length;
+      el('circle', { 'class': cap ? 'cap' : 'd', cx: x, cy: y, r: cap ? 9 : 5 }, gPts);
+      made.push({ x: x, y: y });
+      var li = document.createElement('li'); li.innerHTML = '<b></b><span></span>';
+      li.firstChild.textContent = nombre + (pn && pn !== nombre ? ' · ' + pn : ''); li.lastChild.textContent = fmt(lat) + ' ' + fmt(lon);
+      log.appendChild(li); log.scrollTop = log.scrollHeight; cnt.textContent = made.length;
+      return true;
+    }
+    function limpiar() {
+      cancelAnimationFrame(raf); clearTimeout(timer);
+      gLinks.textContent = ''; gPts.textContent = ''; log.textContent = ''; made = []; cnt.textContent = 0;
+      provs.forEach(function (p) { p.e.classList.remove('on'); });
+      scan.style.opacity = 0;
+    }
+    function relevar() {
+      limpiar();
+      var todos = CIU.slice().sort(function (a, b) { return b[1] - a[1]; }).map(function (c) { return { n: c[0], lat: c[1], lon: c[2], pv: c[3], x: X(c[2]), y: Y(c[1]) }; });
+      if (reduce) { todos.forEach(function (c) { add(c.n, c.lat, c.lon, c.x, c.y, true, c.pv); }); return; }
+      var t0 = performance.now(), dur = 5200, i = 0;
+      scan.style.opacity = 1;
+      (function paso(now) {
+        var k = Math.min(1, (now - t0) / dur), y = -6 + k * 1012;
+        scan.setAttribute('y1', y); scan.setAttribute('y2', y);
+        while (i < todos.length && todos[i].y <= y) { var c = todos[i++]; add(c.n, c.lat, c.lon, c.x, c.y, false, c.pv); }
+        if (k < 1) raf = requestAnimationFrame(paso); else scan.style.opacity = 0;
+      })(t0);
+    }
+    function aCoord(ev) {
+      var r = svg.getBoundingClientRect(), vb = svg.viewBox.baseVal;
+      var x = vb.x + (ev.clientX - r.left) / r.width * vb.width, y = vb.y + (ev.clientY - r.top) / r.height * vb.height;
+      return { x: x, y: y, lon: LON0 + x / (K * S), lat: LAT0 - y / S, px: ev.clientX - r.left, py: ev.clientY - r.top };
+    }
+    svg.addEventListener('pointermove', function (ev) {
+      if (ev.pointerType === 'touch') return;
+      var c = aCoord(ev), dentro = provDe(c.x, c.y);
+      cross.setAttribute('opacity', dentro ? 1 : 0); cross.setAttribute('transform', 'translate(' + c.x.toFixed(1) + ' ' + c.y.toFixed(1) + ')');
+      cross.firstChild.setAttribute('d', 'M' + (-6 - c.x) + ' 0H' + (482 - c.x) + 'M0 ' + (-6 - c.y) + 'V' + (1006 - c.y));
+      pos.textContent = fmt(c.lat) + ' ' + fmt(c.lon); pos.style.opacity = dentro ? 1 : 0;
+      var pr = svg.getBoundingClientRect(), wr = wrap.getBoundingClientRect();
+      pos.style.left = (pr.left - wr.left + c.px) + 'px'; pos.style.top = (pr.top - wr.top + c.py) + 'px';
+    });
+    svg.addEventListener('pointerleave', function () { cross.setAttribute('opacity', 0); pos.style.opacity = 0; });
+    svg.addEventListener('click', function (ev) {
+      var c = aCoord(ev); if (!made.length) return;
+      var pr = provDe(c.x, c.y); if (!pr) return;
+      add('Punto nuevo', c.lat, c.lon, c.x, c.y);
+    });
+    $('#mp-reset').addEventListener('click', relevar);
+    if ('IntersectionObserver' in window) {
+      var mo = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { mo.disconnect(); relevar(); } }, { threshold: .5 });
+      mo.observe(box);
+    } else relevar();
+  })();
+
   /* ------------------------------------------------------------------ */
   if (root.classList.contains('intro-open')) openWorld(); else enter();
 })();

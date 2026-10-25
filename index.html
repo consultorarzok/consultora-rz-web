@@ -379,6 +379,39 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
   .persona h3{font-size:1.15rem;margin-top:.4rem}
   .persona p{font-size:.88rem;line-height:1.5}
 }
+/* Agentes: número para probarlos */
+.rubros .probar{display:flex;width:fit-content;align-items:center;gap:.45rem;margin:.65rem 0 0;padding:.3rem .8rem .3rem .65rem;border:1.5px solid var(--cyan);border-radius:999px;font-weight:700;font-size:.95rem;text-decoration:none;color:var(--navy);font-variant-numeric:tabular-nums;transition:background .2s,color .2s}
+.rubros .probar .wa-ico{width:1.15rem;height:1.15rem;color:var(--cyan-d)}
+.rubros .probar:hover{background:var(--cyan);color:var(--night-2)}.rubros .probar:hover .wa-ico{color:var(--night-2)}
+/* Video de las obras */
+.pegado video.vid{display:block;width:100%;height:auto;background:#0a1424}
+/* Mapeo interactivo */
+.mapeo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.9rem;background:#10294a;color:#d7e8f7;padding:.9rem;background-image:linear-gradient(rgba(72,202,228,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(72,202,228,.1) 1px,transparent 1px);background-size:26px 26px}
+.mp-map{position:relative;touch-action:manipulation;cursor:crosshair}
+.mp-map svg{display:block;width:100%;height:auto;max-height:560px;margin:0 auto;overflow:visible}
+.mp-map .mp{fill:rgba(72,202,228,.06);stroke:rgba(165,196,230,.55);stroke-width:1.3;stroke-linejoin:round;transition:fill .6s}
+.mp-map .mp.on{fill:rgba(0,180,216,.4)}
+.mp-map .mp.jujuy.on{fill:rgba(150,243,255,.7)}
+#mp-links path{fill:none;stroke:#86e9f9;stroke-width:1.6;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:mpDraw .7s ease forwards}
+@keyframes mpDraw{to{stroke-dashoffset:0}}
+#mp-pts circle.d{fill:#9fefff}
+#mp-pts circle.r{fill:none;stroke:#9fefff;stroke-width:2;transform-box:fill-box;transform-origin:center;animation:mpPing 1.1s ease-out forwards}
+@keyframes mpPing{from{transform:scale(.4);opacity:1}to{transform:scale(4.2);opacity:0}}
+#mp-pts circle.cap{fill:#fff;stroke:#00b4d8;stroke-width:3}
+#mp-scan{stroke:#48cae4;stroke-width:2.5;opacity:0;filter:drop-shadow(0 0 5px #48cae4)}
+#mp-cross path{stroke:rgba(159,239,255,.5);stroke-width:1;stroke-dasharray:6 6;fill:none}
+.mp-pos{position:absolute;left:0;top:0;pointer-events:none;font:600 .72rem/1.2 var(--f-body);background:rgba(8,22,42,.92);border:1px solid rgba(72,202,228,.5);color:#bff3ff;padding:.2rem .45rem;border-radius:4px;white-space:nowrap;opacity:0;transform:translate(10px,10px);font-variant-numeric:tabular-nums}
+.mp-panel{display:flex;flex-direction:column;min-width:0}
+.mapeo .mp-tit{margin:0;font:700 1.15rem var(--f-hand);color:#48cae4;max-width:none}
+.mapeo .mp-cnt{margin:0 0 .4rem;color:#d7e8f7;max-width:none}.mp-cnt b{font:800 2rem/1 var(--f-display);color:#fff;font-variant-numeric:tabular-nums}
+.mp-log{list-style:none;margin:0;padding:0;flex:1;max-height:300px;overflow:auto;font-size:.8rem;line-height:1.35;scrollbar-width:thin}
+.mp-log li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.5rem;padding:.28rem 0;border-top:1px solid rgba(72,202,228,.2);animation:mFade .4s}
+.mp-log li span{color:#8fb1d0;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mp-log li b{color:#fff;font-weight:600;overflow:hidden;text-overflow:ellipsis}
+.mapeo .mp-ayuda{margin:.5rem 0 .4rem;font-size:.8rem;color:#8fb1d0;max-width:none}
+.mp-btn{align-self:flex-start;border:1.5px solid #48cae4;background:transparent;color:#bff3ff;font:700 .85rem var(--f-body);padding:.4rem .9rem;border-radius:999px;cursor:pointer}
+.mp-btn:hover{background:#48cae4;color:#0b1a30}
+@media (max-width:520px){.mapeo{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:.6rem;padding:.6rem}.mp-log{max-height:230px}}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-delay:0s!important;transition-delay:0s!important}
@@ -526,14 +559,14 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
       <p>Parte de nuestra cartera y lo que construimos para cada uno: Agentes IA, CRMs, sistemas, juegos y sitios web en producción.</p>
     </div>
     <ul class="rubros">
-      <li data-rv="l"><span class="tag">Sector público</span><div><h3>Concejo Deliberante de San Salvador de Jujuy</h3><p>Asistente virtual que atiende a los vecinos por WhatsApp: busca ordenanzas, informa sobre concejales, comisiones y sesiones, y recibe propuestas para llevar al cuerpo.</p></div></li>
-      <li data-rv="l"><span class="tag">Servicios</span><div><h3>Werchow</h3><p>Agente IA de atención que responde consultas, clasifica cada pedido y avisa a una persona cuando se trata de una urgencia.</p></div></li>
-      <li data-rv="l"><span class="tag">Formación</span><div><h3>Instituto Pierre</h3><p>Agente IA de ventas que responde con tono natural, cierra inscripciones y valida comprobantes. <a href="#casos">Ver el caso</a>.</p></div></li>
+      <li data-rv="l"><span class="tag">Sector público</span><div><h3>Concejo Deliberante de San Salvador de Jujuy</h3><p>Asistente virtual que atiende a los vecinos por WhatsApp: busca ordenanzas, informa sobre concejales, comisiones y sesiones, y recibe propuestas para llevar al cuerpo. <a class="probar" href="https://wa.me/5493885873361?text=Hola" target="_blank" rel="noopener" aria-label="Probar el Agente IA de Concejo Deliberante por WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>+54 9 388 587-3361</a></p></div></li>
+      <li data-rv="l"><span class="tag">Servicios</span><div><h3>Werchow</h3><p>Agente IA de atención que responde consultas, clasifica cada pedido y avisa a una persona cuando se trata de una urgencia. <a class="probar" href="https://wa.me/5493884300930?text=Hola" target="_blank" rel="noopener" aria-label="Probar el Agente IA de Werchow por WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>+54 9 388 430-0930</a></p></div></li>
+      <li data-rv="l"><span class="tag">Formación</span><div><h3>Instituto Pierre</h3><p>Agente IA de ventas que responde con tono natural, cierra inscripciones y valida comprobantes. <a href="#casos">Ver el caso</a>. <a class="probar" href="https://wa.me/5493884778611?text=Hola" target="_blank" rel="noopener" aria-label="Probar el Agente IA del Instituto Pierre por WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>+54 9 388 477-8611</a></p></div></li>
       <li data-rv="l"><span class="tag">Estudios jurídicos</span><div><h3>Asistente legal inteligente</h3><p>Atiende consultas, agenda reuniones y envía recordatorios. <a href="#casos">Ver el caso</a>.</p></div></li>
     </ul>
 
     <article class="obra" data-rv>
-      <figure class="pegado"><img src="assets/ciudad360.jpg" loading="lazy" decoding="async" alt="Pantalla de entrada del sitio Ciudad 360°: un planeta amarillo con edificios y los ejes del proyecto en órbita" width="1000" height="625"></figure>
+      <figure class="pegado"><video class="vid" muted loop playsinline preload="none" poster="assets/ciudad360.jpg" controls aria-label="Recorrido por el sitio Ciudad 360°: la entrada, las pestañas y las recorridas por los barrios" width="1280" height="720"><source src="assets/ciudad360-recorrido.mp4" type="video/mp4"></video><figcaption>Recorrido por el sitio, sin sonido.</figcaption></figure>
       <div>
         <span class="tag">Página web</span>
         <h3>Ciudad 360°</h3>
@@ -551,7 +584,7 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
       </div>
     </article>
     <article class="obra" data-rv>
-      <figure class="pegado"><img src="assets/entrenadores-batalla.jpg" loading="lazy" decoding="async" alt="Modo batalla de Entrenadores RZ: dos criaturas peleando en una arena, con barras de vida y botones de ataque" width="1000" height="562"></figure>
+      <figure class="pegado"><video class="vid" muted loop playsinline preload="none" poster="assets/entrenadores-batalla.jpg" controls aria-label="Entrenadores RZ: la entrada, la apertura de sobres de figuritas y una batalla en la arena" width="1280" height="720"><source src="assets/entrenadores-juego.mp4" type="video/mp4"></video><figcaption>Cómo se entra, se abren los sobres y se pelea. Sin sonido.</figcaption></figure>
       <div>
         <span class="tag">Juego</span>
         <h3>Entrenadores RZ</h3>
@@ -560,7 +593,10 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
       </div>
     </article>
     <article class="obra" data-rv>
-      <figure class="pegado"><svg viewBox="0 0 400 290" role="img" aria-label="Ilustración de un mapa con puntos relevados y puntos por visitar"><rect width="400" height="290" fill="#10294a"/><g stroke="rgba(72,202,228,.14)" stroke-width="1"><path d="M0 48H400M0 96H400M0 144H400M0 192H400M0 240H400M50 0V290M100 0V290M150 0V290M200 0V290M250 0V290M300 0V290M350 0V290"/></g><g fill="none" stroke="rgba(160,200,235,.35)" stroke-width="7" stroke-linecap="round"><path d="M-10 210C70 190 120 130 210 120S340 70 410 40"/><path d="M110 300C120 220 170 190 215 120"/><path d="M270 300C280 230 330 190 410 175"/></g><g fill="#00b4d8" stroke="#fff" stroke-width="2.5"><circle cx="82" cy="186" r="9"/><circle cx="150" cy="148" r="9"/><circle cx="206" cy="124" r="9"/><circle cx="168" cy="214" r="9"/><circle cx="300" cy="92" r="9"/></g><g fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="4 4"><circle cx="262" cy="150" r="9"/><circle cx="330" cy="206" r="9"/><circle cx="64" cy="108" r="9"/></g><text x="22" y="272" font-family="Kalam,cursive" font-size="17" fill="#bdeaf6">relevados</text><circle cx="122" cy="266" r="5" fill="#00b4d8" stroke="#fff" stroke-width="1.5"/><text x="148" y="272" font-family="Kalam,cursive" font-size="17" fill="#bdeaf6">a visitar</text><circle cx="232" cy="266" r="5" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="2.5 2.5"/></svg></figure>
+      <figure class="pegado"><div class="mapeo" id="mapeo">
+        <div class="mp-map"><svg viewBox="-6 -6 488 1012" role="img" aria-label="Mapa de Argentina donde se van detectando puntos y uniendo entre sí"><g id="mp-prov"></g><g id="mp-links"></g><g id="mp-pts"></g><line id="mp-scan" x1="-6" x2="482" y1="-6" y2="-6"/><g id="mp-cross" opacity="0"><path d="M-6 0H482M0 -6V1006"/></g></svg><span class="mp-pos" id="mp-pos" aria-hidden="true"></span></div>
+        <div class="mp-panel"><p class="mp-tit">Relevamiento</p><p class="mp-cnt"><b id="mp-n">0</b> puntos</p><ol class="mp-log" id="mp-log" aria-live="polite"></ol><p class="mp-ayuda">Tocá el mapa para sumar un punto.</p><button class="mp-btn" id="mp-reset" type="button">Relevar de nuevo</button></div>
+      </div><figcaption>Ejemplo ilustrativo: ciudades reales, sin datos de clientes.</figcaption></figure>
       <div>
         <span class="tag">Sistema a medida</span>
         <h3>Mapeo y relevamiento</h3>
