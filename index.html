@@ -15,7 +15,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Consultora RZ & Asociados: transformamos tareas repetitivas en procesos automatizados">
 <meta property="og:description" content="Agentes IA para WhatsApp, flujos digitales e integraciones. Desde Jujuy para todo el norte argentino.">
-<meta property="og:image" content="https://www.consultorarz.com/assets/og.jpg">
+<meta property="og:image" content="https://consultorarzok.github.io/consultora-rz-web/assets/og.jpg"><!-- VISTA PREVIA: al publicar en el dominio volver a https://www.consultorarz.com/assets/og.jpg -->
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:locale" content="es_AR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -221,15 +222,28 @@ html.intro-open{overflow:hidden}
 .intro-open #mundo,#mundo.salir{display:grid}
 #mundo[hidden]{display:none!important}
 #mundo::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(72,202,228,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(72,202,228,.09) 1px,transparent 1px);background-size:var(--cell) var(--cell);-webkit-mask:radial-gradient(ellipse 75% 70% at 50% 45%,#000,transparent);mask:radial-gradient(ellipse 75% 70% at 50% 45%,#000,transparent);pointer-events:none}
-.m-logo{position:relative;width:min(310px,64vw);height:auto;animation:mUp .9s var(--ease) .2s backwards}
-.m-stage{position:relative;width:min(100vw,780px,calc((100svh - 210px)*.963));aspect-ratio:520/540;animation:mIn 1.5s var(--ease) backwards}
+.m-logo{position:relative;width:min(380px,78vw);aspect-ratio:1000/226}
+.m-logo .pz{position:absolute;inset:0;width:100%;height:100%;transform-origin:11.50% 55.75%}
+.m-logo .p1{clip-path:polygon(22.90% 0.00%,22.90% 26.63%,11.50% 55.75%,1.50% 30.21%,1.50% 0.00%);animation:pz1 1s cubic-bezier(.2,1.25,.35,1) .25s backwards}
+.m-logo .p2{clip-path:polygon(1.50% 100.00%,1.50% 30.21%,11.50% 55.75%,11.50% 100.00%);animation:pz2 1s cubic-bezier(.2,1.25,.35,1) .42s backwards}
+.m-logo .p3{clip-path:polygon(11.50% 100.00%,11.50% 55.75%,22.90% 26.63%,22.90% 100.00%);animation:pz3 1s cubic-bezier(.2,1.25,.35,1) .59s backwards}
+.m-logo .nom{clip-path:inset(0 0 47% 23.2%);animation:nom .9s var(--ease) 1.25s backwards}
+.m-logo .baj{clip-path:inset(53% 0 0 23.2%);animation:baj 1s var(--ease) 1.7s backwards}
+.m-logo::after{content:"";position:absolute;left:0;top:0;width:24%;height:100%;border-radius:50%;background:radial-gradient(closest-side,rgba(72,202,228,.55),transparent);opacity:0;animation:chispa 1.1s ease-out 1.1s;pointer-events:none}
+@keyframes pz1{from{opacity:0;transform:translate(0,-34px) rotate(-70deg) scale(.55)}}
+@keyframes pz2{from{opacity:0;transform:translate(-34px,24px) rotate(70deg) scale(.55)}}
+@keyframes pz3{from{opacity:0;transform:translate(34px,24px) rotate(-70deg) scale(.55)}}
+@keyframes nom{from{clip-path:inset(0 100% 47% 23.2%);transform:translateX(-10px)}}
+@keyframes baj{from{clip-path:inset(53% 100% 0 23.2%);opacity:.2}}
+@keyframes chispa{0%{opacity:0;transform:scale(.6)}35%{opacity:1}100%{opacity:0;transform:scale(1.5)}}
+.m-stage{position:relative;width:min(100vw,780px,calc((100svh - 190px)*.963));aspect-ratio:520/540;animation:mFade 1.2s ease backwards}
 .m-stage .w-l{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
 .m-pie{position:relative;margin:0;min-height:2.2rem;font:700 clamp(1.25rem,3.6vw,1.7rem)/1.2 var(--f-hand);color:#bdeaf6;text-align:center;max-width:none}
 .m-pie.flip{animation:capIn .6s var(--ease)}
-.m-enter{position:relative;margin-top:.8rem;min-width:12rem;justify-content:center;font-size:1.1rem;opacity:0;animation:mUp .9s var(--ease) 1.7s forwards,pulso 2.8s ease-in-out 3s infinite}
+.m-enter{position:relative;margin-top:.8rem;min-width:12rem;justify-content:center;font-size:1.1rem;}
 #mundo.salir{opacity:0;pointer-events:none;transition:opacity .9s ease .2s}
 #mundo.salir .m-stage{transform:scale(2.3);opacity:0;transition:transform 1.1s cubic-bezier(.7,0,.84,0),opacity .8s ease .1s}
-#mundo.salir .m-logo,#mundo.salir .m-pie,#mundo.salir .m-enter{opacity:0;transition:opacity .4s}
+#mundo.salir .m-logo,#mundo.salir .m-enter{opacity:0;transition:opacity .4s}
 .w-stars circle{fill:#c9f3ff;animation:tw 4s ease-in-out infinite}
 .w-orb ellipse,.w-orb path{fill:none;stroke:rgba(159,236,255,.26);stroke-width:1.2;stroke-dasharray:3 7}
 .w-orb.f path{stroke:rgba(159,236,255,.55)}
@@ -237,15 +251,15 @@ html.intro-open{overflow:hidden}
 .ico{fill:none;stroke:#fff;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
 .ico .ac{stroke:#48cae4}.ico circle.ac{fill:#48cae4}
 .w-floor{fill:rgba(0,0,0,.4);filter:blur(5px)}
-@keyframes mIn{from{opacity:0;transform:scale(.55)}}
+@keyframes mFade{from{opacity:0}}
 @keyframes mUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes capIn{from{opacity:0;transform:translateY(8px)}}
 @keyframes tw{0%,100%{opacity:.15}50%{opacity:.95}}
 @keyframes pulso{0%,100%{box-shadow:0 8px 22px -10px rgba(5,20,40,.55),0 0 0 0 rgba(0,180,216,.5)}60%{box-shadow:0 8px 22px -10px rgba(5,20,40,.55),0 0 0 16px rgba(0,180,216,0)}}
 
 /* ===== movimiento al hacer scroll ===== */
-.js .rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .95s var(--ease);transition-delay:calc(var(--s,0)*110ms)}
-.js .rv[data-rv="l"]{transform:translateX(-30px)}
+.js .rv{opacity:0;transform:translateY(10px);transition:opacity .8s var(--ease),transform .95s var(--ease);transition-delay:calc(var(--s,0)*110ms)}
+.js .rv[data-rv="l"]{transform:translateX(-12px)}
 .js .rv.in{opacity:1;transform:none}
 .cifra b{background-repeat:no-repeat;background-size:100% 100%;font-variant-numeric:tabular-nums}
 .js .cifra b{background-size:0 100%}
@@ -257,12 +271,13 @@ html.intro-open{overflow:hidden}
 /* ===== equipo en círculo ===== */
 .equipo{text-align:center;justify-items:center}
 .foto{position:relative;width:min(74vw,320px);aspect-ratio:1;margin:1.2rem auto 4.2rem}
-.foto .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--cyan),var(--navy),var(--cyan-l),var(--navy-2),var(--cyan));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 7px),#000 calc(100% - 6px));mask:radial-gradient(farthest-side,transparent calc(100% - 7px),#000 calc(100% - 6px));animation:spin 12s linear infinite;transition:animation-duration .3s}
-.foto .orb{position:absolute;inset:-18px;border-radius:50%;border:1.5px dashed rgba(0,120,143,.55);animation:spin 42s linear infinite reverse}
+.foto .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--cyan),var(--navy),var(--cyan-l),var(--navy-2),var(--cyan));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 7px),#000 calc(100% - 6px));mask:radial-gradient(farthest-side,transparent calc(100% - 7px),#000 calc(100% - 6px));transition:transform 1.2s var(--ease)}
+.foto .orb{position:absolute;inset:-18px;border-radius:50%;border:1.5px dashed rgba(0,120,143,.55);transform:rotate(-38deg);transition:transform 1.4s var(--ease)}
 .foto .orb i{position:absolute;top:-6.5px;left:50%;width:13px;height:13px;margin-left:-6.5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 5px rgba(0,180,216,.25)}
 .foto img{position:absolute;inset:14px;width:calc(100% - 28px);height:calc(100% - 28px);border-radius:50%;object-fit:cover;border:5px solid #fff;box-shadow:0 20px 40px -22px rgba(26,54,93,.7);outline:0;margin:0;aspect-ratio:auto;filter:none}
 .foto .cargo{position:absolute;left:50%;bottom:-2.3rem;transform:translateX(-50%);background:var(--navy);color:#fff;font:600 .9rem/1.3 var(--f-body);padding:.65rem 1.2rem;border-radius:999px;width:max-content;max-width:112%;text-align:center;box-shadow:0 12px 24px -12px rgba(26,54,93,.8)}
-.foto:hover .ring{animation-duration:3.5s}
+.foto:hover .ring{transform:rotate(180deg)}
+.foto:hover .orb{transform:rotate(60deg)}
 .persona p{margin-inline:auto}
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -280,9 +295,9 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
 .mapa.in .m-net circle{animation:pop .6s var(--ease) forwards;animation-delay:calc(1.6s + var(--d))}
 .m-cap{opacity:0}
 .mapa.in .m-cap{animation:fadeIn .8s ease 3.4s forwards}
-.m-cap .halo{transform-box:fill-box;transform-origin:center;animation:halo 2.6s ease-in-out infinite}
-.m-cap .ring{fill:none;stroke:#fff;stroke-width:2;transform-box:fill-box;transform-origin:center;animation:ping 2.6s ease-out infinite}
-.m-cap .r2{animation-delay:1.3s}
+.m-cap .halo{transform-box:fill-box;transform-origin:center;animation:halo 2.6s ease-in-out 4.2s 3}
+.m-cap .ring{fill:none;stroke:#fff;stroke-width:2;transform-box:fill-box;transform-origin:center;animation:ping 2.6s ease-out 4.2s 3 backwards}
+.m-cap .r2{animation-delay:5.5s}
 .m-lab{opacity:0}
 .mapa.in .m-lab{animation:fadeIn .9s ease 4s forwards}
 .m-lab path{fill:none;stroke:rgba(255,255,255,.85);stroke-width:1.4}
@@ -327,15 +342,19 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-delay:0s!important;transition-delay:0s!important}
-  .m-enter{opacity:1}
 }
 </style>
 </head>
 <body>
 <div id="mundo" role="dialog" aria-modal="true" aria-label="Bienvenida a Consultora RZ & Asociados">
-  <img class="m-logo" src="assets/horizontal_blanco.png" alt="Consultora RZ & Asociados" width="1000" height="196">
+  <div class="m-logo" role="img" aria-label="Consultora RZ &amp; Asociados. Liberamos tu tiempo, potenciamos tu productividad">
+    <img class="pz p1" src="assets/horizontal_blanco.png" alt="" width="1000" height="226">
+    <img class="pz p2" src="assets/horizontal_blanco.png" alt="" width="1000" height="226">
+    <img class="pz p3" src="assets/horizontal_blanco.png" alt="" width="1000" height="226">
+    <img class="pz nom" src="assets/horizontal_blanco.png" alt="" width="1000" height="226">
+    <img class="pz baj" src="assets/horizontal_blanco.png" alt="" width="1000" height="226">
+  </div>
   <div class="m-stage" id="mundo-stage"></div>
-  <p class="m-pie" id="mundo-cap" aria-hidden="true"></p>
   <button class="btn btn-wa m-enter" id="mundo-enter" type="button">Entrar</button>
 </div>
 
@@ -441,7 +460,7 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
     </article>
     <article class="caso">
       <div>
-        <p class="tipo">Centro de formación</p>
+        <p class="tipo">Instituto Pierre · Centro de formación</p>
         <h3>Asistente de Ventas</h3>
         <p class="que">Agente inteligente que gestiona la comunicación con alumnos potenciales.</p>
         <ul>
@@ -460,14 +479,13 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
   <div class="wrap">
     <div class="sec-head">
       <h2 id="h-trab">Lo que ya funciona hoy</h2>
-      <p>Agentes IA, sistemas, juegos y sitios web en producción para organismos públicos, empresas, instituciones y medios de la región.</p>
+      <p>Parte de nuestra cartera y lo que construimos para cada uno: Agentes IA, sistemas, juegos y sitios web en producción.</p>
     </div>
     <ul class="rubros">
-      <li data-rv="l"><span class="tag">Sector público</span><div><h3>Asistente virtual de un Concejo Deliberante</h3><p>Atiende a los vecinos por WhatsApp: busca ordenanzas, informa sobre concejales, comisiones y sesiones, y recibe propuestas para llevar al cuerpo.</p></div></li>
-      <li data-rv="l"><span class="tag">Servicios a familias</span><div><h3>Agente IA de atención y derivación</h3><p>Responde consultas, clasifica cada pedido y avisa a una persona cuando se trata de una urgencia.</p></div></li>
-      <li data-rv="l"><span class="tag">Formación</span><div><h3>Agente IA de inscripciones</h3><p>Responde con tono natural, cierra inscripciones y valida comprobantes. <a href="#casos">Ver el caso</a>.</p></div></li>
+      <li data-rv="l"><span class="tag">Sector público</span><div><h3>Concejo Deliberante de San Salvador de Jujuy</h3><p>Asistente virtual que atiende a los vecinos por WhatsApp: busca ordenanzas, informa sobre concejales, comisiones y sesiones, y recibe propuestas para llevar al cuerpo.</p></div></li>
+      <li data-rv="l"><span class="tag">Servicios</span><div><h3>Werchow</h3><p>Agente IA de atención que responde consultas, clasifica cada pedido y avisa a una persona cuando se trata de una urgencia.</p></div></li>
+      <li data-rv="l"><span class="tag">Formación</span><div><h3>Instituto Pierre</h3><p>Agente IA de ventas que responde con tono natural, cierra inscripciones y valida comprobantes. <a href="#casos">Ver el caso</a>.</p></div></li>
       <li data-rv="l"><span class="tag">Estudios jurídicos</span><div><h3>Asistente legal inteligente</h3><p>Atiende consultas, agenda reuniones y envía recordatorios. <a href="#casos">Ver el caso</a>.</p></div></li>
-      <li data-rv="l"><span class="tag">Medios digitales</span><div><h3>Redacción y publicación automática</h3><p>Toma noticias de fuentes locales, las redacta con criterio editorial, arma la placa y publica en Facebook e Instagram varias veces por día.</p></div></li>
     </ul>
 
     <article class="obra" data-rv>
@@ -480,11 +498,11 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
       </div>
     </article>
     <article class="obra" data-rv>
-      <figure class="pegado"><img src="assets/entrenadores.jpg" alt="Pantalla de entrada del juego Entrenadores RZ: un planeta con objetos coleccionables en órbita" width="1000" height="625"></figure>
+      <figure class="pegado"><img src="assets/entrenadores-batalla.jpg" alt="Modo batalla de Entrenadores RZ: dos criaturas peleando en una arena, con barras de vida y botones de ataque" width="1000" height="562"></figure>
       <div>
         <span class="tag">Juego</span>
         <h3>Entrenadores RZ</h3>
-        <p>Un juego web para una comunidad: se colecciona un álbum, se intercambia y se pelea en duelos en vivo. Tiene servidor propio que cuida que nadie haga trampa y se usó en un evento presencial con códigos de regalo. Si tu marca quiere sumar gente a una campaña, un evento o una comunidad, también armamos experiencias así.</p>
+        <p>Un juego web para una comunidad: se colecciona un álbum, se intercambia y se pelea en el modo batalla, en tiempo real. Tiene servidor propio que cuida que nadie haga trampa y se usó en un evento presencial con códigos de regalo. Si tu marca quiere sumar gente a una campaña, un evento o una comunidad, también armamos experiencias así.</p>
         <a class="ver" href="https://entrenadoresrz.com" target="_blank" rel="noopener">Jugar</a>
       </div>
     </article>

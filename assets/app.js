@@ -74,7 +74,6 @@
     var front = el('svg', { viewBox: VB, 'aria-hidden': 'true', focusable: 'false', class: 'w-l' }, box);
     var orbitsFront = el('g', { class: 'w-orb f' }, front);
     var itemsFront = el('g', {}, front);
-    var mark = el('image', { class: 'w-mark', href: 'assets/isotipo_blanco.png', x: -42, y: -R - 92, width: 84, height: 78 }, front);
 
     var ORB = [{ rx: 228, ry: 62, tilt: -16, speed: .00020 }, { rx: 216, ry: 72, tilt: 28, speed: -.00016 }];
     ORB.forEach(function (o) {
@@ -93,7 +92,7 @@
     for (var q = 0; q < T.length; q += 3) tierra.push({ lat: T[q] / 10, lon: T[q + 1] / 10, t: T[q + 2] });
     var arcos = CIUDADES.map(function (c, k) { return { pts: arco(c, JUJUY), off: rnd(), vel: .00016 + rnd() * .00012, delay: k * 140 }; });
 
-    var w = { cv: cv, ctx: cv.getContext('2d'), items: items, ORB: ORB, itemsBack: itemsBack, itemsFront: itemsFront, mark: mark, tierra: tierra, arcos: arcos, box: box, s: 1 };
+    var w = { cv: cv, ctx: cv.getContext('2d'), items: items, ORB: ORB, itemsBack: itemsBack, itemsFront: itemsFront, tierra: tierra, arcos: arcos, box: box, s: 1 };
     function size() {
       var bw = box.clientWidth, bh = box.clientHeight, dpr = Math.min(2, window.devicePixelRatio || 1);
       cv.width = Math.round(bw * dpr); cv.height = Math.round(bh * dpr);
@@ -179,7 +178,6 @@
 
   function drawWorld(w, t, ramp, capEl) {
     drawGlobe(w, t, ramp / 2.6);
-    w.mark.setAttribute('y', (-R - 92 + Math.sin(t * .0018) * 3).toFixed(1));
     var k = ease(Math.min(1, ramp));
     var best = null;
     w.items.forEach(function (it) {
