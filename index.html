@@ -7,7 +7,7 @@
 <meta name="description" content="Automatizamos las tareas repetitivas de tu negocio: Agentes IA para WhatsApp, flujos digitales e integraciones. Consultora de San Salvador de Jujuy para todo el norte argentino.">
 <meta name="theme-color" content="#1a365d">
 <meta name="robots" content="noindex,nofollow"><!-- VISTA PREVIA: quitar esta línea al publicar en consultorarz.com -->
-<script>(function(){var r=document.documentElement;r.classList.add("js");if(!location.hash)r.classList.add("intro-open");setTimeout(function(){if(!window.__rz){r.classList.remove("js","intro-open")}},4500)})()</script>
+<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem("rz-tema");if(t==="dark"||t==="light")r.setAttribute("data-theme",t)}catch(e){}r.classList.add("js");if(!location.hash)r.classList.add("intro-open");setTimeout(function(){if(!window.__rz){r.classList.remove("js","intro-open")}},4500)})()</script>
 <noscript><style>#mundo{display:none!important}</style></noscript>
 <link rel="canonical" href="https://www.consultorarz.com/">
 <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -27,6 +27,7 @@
 :root{
   --navy:#1a365d; --navy-2:#2c5282; --night:#0f2442; --night-2:#0b1a30;
   --cyan:#00b4d8; --cyan-d:#00788f; --cyan-l:#48cae4;
+  --brand:#1a365d; --top-bg:rgba(246,249,252,.92); --card:#fff; --field:#fff;
   --paper:#f6f9fc; --white:#fff; --ink:#1a2b45; --ink-2:#4a5d78; --pencil:#5b6b85;
   --rule:rgba(0,120,143,.16); --rule-strong:rgba(26,54,93,.22);
   --cell:28px;
@@ -36,6 +37,29 @@
   --ease:cubic-bezier(.16,1,.3,1);
   --gutter:clamp(1.25rem,5vw,4rem);
 }
+
+/* ===== modo oscuro ===== */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --navy:#e8f0fa; --ink:#d7e2ef; --ink-2:#a8b9cf; --pencil:#8b9db6; --cyan-d:#5fd3ec;
+  --paper:#0a1424; --white:#0e1c31; --card:#13233b; --field:#0b182b; --top-bg:rgba(10,20,36,.9);
+  --rule:rgba(72,202,228,.12); --rule-strong:rgba(150,185,225,.22); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --navy:#e8f0fa; --ink:#d7e2ef; --ink-2:#a8b9cf; --pencil:#8b9db6; --cyan-d:#5fd3ec;
+  --paper:#0a1424; --white:#0e1c31; --card:#13233b; --field:#0b182b; --top-bg:rgba(10,20,36,.9);
+  --rule:rgba(72,202,228,.12); --rule-strong:rgba(150,185,225,.22); color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+.brand .ld{display:none}
+:root[data-theme="dark"] .brand .ll{display:none}:root[data-theme="dark"] .brand .ld{display:block}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand .ll{display:none}:root:not([data-theme="light"]) .brand .ld{display:block}}
+:root[data-theme="dark"] .r{color:#eaf6ff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .r{color:#eaf6ff}}
+.tema{display:inline-grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:50%;border:1.5px solid var(--rule-strong);background:transparent;color:var(--navy);cursor:pointer;transition:background .2s,border-color .2s}
+.tema:hover{border-color:var(--cyan);background:rgba(0,180,216,.1)}
+.tema svg{width:1.15rem;height:1.15rem}
+.tema .sol{display:none}
+:root[data-theme="dark"] .tema .sol{display:block}:root[data-theme="dark"] .tema .luna{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tema .sol{display:block}:root:not([data-theme="light"]) .tema .luna{display:none}}
+.acc{display:flex;align-items:center;gap:.6rem}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scrollbar-color:var(--navy-2) var(--paper)}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.65 var(--f-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;caret-color:var(--cyan)}
@@ -45,7 +69,7 @@ img{max-width:100%;display:block}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:4px}
 .wrap{max-width:1180px;margin:0 auto;padding-inline:var(--gutter)}
-.skip{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:.7rem 1rem;z-index:100}
+.skip{position:absolute;left:-999px;top:0;background:var(--brand);color:#fff;padding:.7rem 1rem;z-index:100}
 .skip:focus{left:1rem;top:1rem}
 h1,h2,h3{font-family:var(--f-display);color:var(--navy);margin:0;text-wrap:balance;letter-spacing:-.025em}
 h2{font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.05;font-weight:700}
@@ -59,17 +83,18 @@ p{margin:0 0 1em;max-width:62ch;text-wrap:pretty}
 .btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 26px -12px rgba(5,20,40,.65)}
 .btn-wa:active{transform:translateY(0)}
 .btn-line{color:var(--navy);border-color:var(--navy);background:transparent}
-.btn-line:hover{background:var(--navy);color:#fff}
+.btn-line:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
 .btn[disabled]{opacity:.55;cursor:not-allowed}
 
 /* ---------- cabecera ---------- */
-.top{position:sticky;top:0;z-index:50;background:rgba(246,249,252,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule-strong)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;min-height:4.5rem}
-.brand img{height:3.1rem;width:auto}
-.nav{display:flex;gap:1.9rem;list-style:none;margin:0;padding:0}
-.nav a{text-decoration:none;font-weight:600;font-size:.97rem;color:var(--ink-2);padding:.4rem 0;background:linear-gradient(var(--cyan),var(--cyan)) no-repeat 0 100%/0 3px;transition:background-size .3s var(--ease),color .2s}
+.top{position:sticky;top:0;z-index:50;background:var(--top-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule-strong)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;min-height:4rem}
+.brand img{height:2.45rem;width:auto}
+.nav{display:flex;gap:1.5rem;list-style:none;margin:0;padding:0}
+.nav a{text-decoration:none;font-weight:600;font-size:.93rem;color:var(--ink-2);padding:.4rem 0;background:linear-gradient(var(--cyan),var(--cyan)) no-repeat 0 100%/0 3px;transition:background-size .3s var(--ease),color .2s}
 .nav a:hover{color:var(--navy);background-size:100% 3px}
-.top .btn{min-height:2.75rem;padding:.55rem 1.15rem;font-size:.95rem}
+.top .btn{min-height:2.4rem;padding:.45rem 1rem;font-size:.9rem;gap:.5rem}
+.top .btn svg{width:1.1rem;height:1.1rem}
 
 /* ---------- hero: la hoja de cuaderno ---------- */
 .hero{padding:clamp(2.5rem,5vw,4rem) 0 0}
@@ -116,9 +141,9 @@ section{scroll-margin-top:5rem}
 .agente h3{font-size:clamp(1.8rem,3.4vw,2.7rem);color:#fff;line-height:1.05}
 .agente p{color:#c3d4ea;margin:1rem 0 1.6rem}
 .chat{display:flex;flex-direction:column;gap:.7rem;align-self:center;font-size:.98rem}
-.msg{max-width:86%;padding:.7rem 1rem;border-radius:14px 14px 14px 4px;background:#fff;color:var(--ink);line-height:1.4;box-shadow:0 10px 20px -14px rgba(0,0,0,.6)}
+.msg{max-width:86%;padding:.7rem 1rem;border-radius:14px 14px 14px 4px;background:#fff;color:#1a2b45;line-height:1.4;box-shadow:0 10px 20px -14px rgba(0,0,0,.6)}
 .msg.yo{align-self:flex-end;background:var(--cyan);color:var(--night-2);border-radius:14px 14px 4px 14px;font-weight:500}
-.msg small{display:block;margin-top:.25rem;font-size:.74rem;color:var(--pencil);text-align:right}
+.msg small{display:block;margin-top:.25rem;font-size:.74rem;color:#5b6b85;text-align:right}
 .msg.yo small{color:rgba(11,26,48,.88)}
 .chat-nota{font:400 .95rem/1.4 var(--f-hand);color:#9fb6d3;margin:.3rem 0 0}
 .lista{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(2rem,5vw,5rem);margin-top:clamp(1.5rem,3vw,2.5rem)}
@@ -169,7 +194,7 @@ section{scroll-margin-top:5rem}
 .base figure{margin:0}
 
 /* contacto */
-.contacto{background:var(--navy);color:#e8f0fa;background-image:linear-gradient(rgba(72,202,228,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(72,202,228,.1) 1px,transparent 1px);background-size:var(--cell) var(--cell)}
+.contacto{background:var(--brand);color:#e8f0fa;background-image:linear-gradient(rgba(72,202,228,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(72,202,228,.1) 1px,transparent 1px);background-size:var(--cell) var(--cell)}
 .contacto .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:clamp(2.5rem,6vw,6rem);align-items:start}
 .contacto h2{color:#fff;font-size:clamp(2.3rem,5.4vw,4.2rem);line-height:1.02}
 .contacto p{color:#c9d9ee;font-size:1.15rem}
@@ -182,7 +207,7 @@ section{scroll-margin-top:5rem}
 form{background:var(--paper);color:var(--ink);padding:clamp(1.5rem,3vw,2.2rem);border-radius:6px;display:grid;gap:1.1rem;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
 form h3{font-size:1.5rem}
 label{display:grid;gap:.35rem;font-weight:600;font-size:.95rem;color:var(--navy)}
-input,textarea{font:400 1.05rem/1.4 var(--f-body);color:var(--ink);background:#fff;border:1.5px solid var(--rule-strong);border-radius:8px;padding:.8rem .95rem;width:100%;transition:border-color .2s,box-shadow .2s}
+input,textarea{font:400 1.05rem/1.4 var(--f-body);color:var(--ink);background:var(--field);border:1.5px solid var(--rule-strong);border-radius:8px;padding:.8rem .95rem;width:100%;transition:border-color .2s,box-shadow .2s}
 input::placeholder,textarea::placeholder{color:var(--pencil)}
 input:hover,textarea:hover{border-color:var(--navy-2)}
 input:focus,textarea:focus{outline:none;border-color:var(--cyan-d);box-shadow:0 0 0 4px rgba(0,180,216,.25)}
@@ -199,7 +224,7 @@ footer b{color:#e8f0fa;font-weight:600}
 
 /* flotante móvil */
 .top .btn .corto{display:none}
-@media (max-width:900px){.top .btn .corto{display:inline}}
+@media (max-width:900px){.top .btn .corto{display:inline}.top .btn{padding:.4rem .85rem;font-size:.85rem}.top .wrap{min-height:3.6rem;gap:.6rem}}
 @media (max-width:900px){
   .nav{display:none}
   .agente{grid-template-columns:1fr}
@@ -210,7 +235,7 @@ footer b{color:#e8f0fa;font-weight:600}
   .paso{grid-template-columns:3rem 1fr}
   .paso p{grid-column:2}
   .equipo,.mv,.base .wrap,.contacto .wrap{grid-template-columns:1fr}
-  .brand img{height:2.5rem}
+  .brand img{height:2.3rem}
   .top .btn .largo{display:none}
 }
 
@@ -273,11 +298,11 @@ html.intro-open{overflow:hidden}
 /* ===== equipo en círculo ===== */
 .equipo{text-align:center;justify-items:center}
 .foto{position:relative;width:min(60vw,270px);aspect-ratio:1;margin:1.4rem auto 4.2rem}
-.foto .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--cyan),var(--navy),var(--cyan-l),var(--navy-2),var(--cyan));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 7px),#000 calc(100% - 6px));mask:radial-gradient(farthest-side,transparent calc(100% - 7px),#000 calc(100% - 6px));transition:transform 1.2s var(--ease)}
+.foto .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--cyan),var(--brand),var(--cyan-l),var(--navy-2),var(--cyan));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 7px),#000 calc(100% - 6px));mask:radial-gradient(farthest-side,transparent calc(100% - 7px),#000 calc(100% - 6px));transition:transform 1.2s var(--ease)}
 .foto .orb{position:absolute;inset:-18px;border-radius:50%;border:1.5px dashed rgba(0,120,143,.55);animation:spin 16s linear infinite}
 .foto .orb i{position:absolute;top:-6.5px;left:50%;width:13px;height:13px;margin-left:-6.5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 5px rgba(0,180,216,.25)}
 .foto img{position:absolute;inset:14px;width:calc(100% - 28px);height:calc(100% - 28px);border-radius:50%;object-fit:cover;border:5px solid #fff;box-shadow:0 20px 40px -22px rgba(26,54,93,.7);outline:0;margin:0;aspect-ratio:auto;filter:none}
-.foto .cargo{position:absolute;left:50%;bottom:-2.3rem;transform:translateX(-50%);background:var(--navy);color:#fff;font:600 .9rem/1.3 var(--f-body);padding:.65rem 1.2rem;border-radius:999px;width:max-content;max-width:112%;text-align:center;box-shadow:0 12px 24px -12px rgba(26,54,93,.8)}
+.foto .cargo{position:absolute;left:50%;bottom:-2.3rem;transform:translateX(-50%);background:var(--brand);color:#fff;font:600 .9rem/1.3 var(--f-body);padding:.65rem 1.2rem;border-radius:999px;width:max-content;max-width:112%;text-align:center;box-shadow:0 12px 24px -12px rgba(26,54,93,.8)}
 .foto:hover .ring{transform:rotate(180deg)}
 .persona p{margin-inline:auto}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -324,7 +349,7 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
 .rubros a,.obra .ver{color:var(--navy);font-weight:700;text-underline-offset:4px;text-decoration-color:var(--cyan);text-decoration-thickness:2px}
 .obra{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(2rem,5vw,4.5rem);align-items:center;padding:clamp(1.8rem,4vw,3rem) 0}
 .obra:nth-of-type(even) .pegado{order:2}
-.pegado{margin:0;position:relative;background:#fff;padding:10px;box-shadow:0 22px 44px -24px rgba(26,54,93,.6),0 1px 0 rgba(26,54,93,.12);transform:rotate(-1.3deg);transition:transform .5s var(--ease)}
+.pegado{margin:0;position:relative;background:var(--card);padding:10px;box-shadow:0 22px 44px -24px rgba(26,54,93,.6),0 1px 0 rgba(26,54,93,.12);transform:rotate(-1.3deg);transition:transform .5s var(--ease)}
 .obra:nth-of-type(even) .pegado{transform:rotate(1.2deg)}
 .pegado:hover{transform:rotate(0) scale(1.015)}
 .pegado::before,.pegado::after{content:"";position:absolute;width:5.4rem;height:1.5rem;background:rgba(0,180,216,.4);top:-.75rem;z-index:2}
@@ -374,7 +399,7 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#" aria-label="Consultora RZ & Asociados, inicio"><img src="assets/horizontal_color.png" alt="Consultora RZ & Asociados" width="1000" height="196"></a>
+    <a class="brand" href="#" aria-label="Consultora RZ & Asociados, inicio"><img class="ll" src="assets/horizontal_color.png" alt="Consultora RZ & Asociados" width="1000" height="196"><img class="ld" src="assets/horizontal_blanco.png" alt="" width="1000" height="226"></a>
     <ul class="nav">
       <li><a href="#servicios">Servicios</a></li>
       <li><a href="#casos">Casos</a></li>
@@ -382,9 +407,12 @@ svg.mapa{height:clamp(520px,82vh,820px);width:auto;max-width:100%;overflow:visib
       <li><a href="#metodologia">Metodología</a></li>
       <li><a href="#nosotros">Nosotros</a></li>
     </ul>
+    <div class="acc">
+    <button class="tema" id="tema" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar el modo"><svg class="luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg><svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg></button>
     <a class="btn btn-wa" href="https://wa.me/543885070493?text=Hola%2C%20quiero%20consultar%20por%20automatizaci%C3%B3n" data-wa>
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.5A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 1 1-4.2 15l-.3-.18-3 .87.9-2.93-.2-.3A8.1 8.1 0 0 1 12.04 3.8Zm-3.2 4.2c-.2 0-.5.07-.75.35-.25.27-.97.95-.97 2.3 0 1.37 1 2.7 1.14 2.88.14.18 1.93 3.07 4.77 4.18 2.36.93 2.84.74 3.35.7.52-.05 1.67-.68 1.9-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.19-.54-.33-.28-.14-1.67-.82-1.93-.92-.26-.1-.45-.14-.64.14-.19.28-.73.92-.9 1.1-.16.2-.33.21-.6.07-.29-.14-1.2-.44-2.28-1.4-.84-.75-1.4-1.68-1.57-1.96-.16-.28-.02-.43.12-.57.13-.12.28-.33.42-.5.14-.16.19-.28.28-.47.1-.19.05-.35-.02-.5-.07-.14-.63-1.54-.87-2.1-.23-.54-.46-.47-.64-.48h-.55Z"/></svg>
       <span class="largo">Escribinos por WhatsApp</span><span class="corto">WhatsApp</span></a>
+    </div>
   </div>
 </header>
 

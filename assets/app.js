@@ -311,6 +311,22 @@
     nota.textContent = 'Listo, se abrió WhatsApp con tu mensaje.';
   });
 
+  /* ------------------------------------------------------------------
+     Modo claro / oscuro
+     ------------------------------------------------------------------ */
+  var tb = $('#tema');
+  function oscuro() { var t = root.getAttribute('data-theme'); return t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches; }
+  function rotular() { if (tb) tb.setAttribute('aria-label', oscuro() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'); }
+  if (tb) {
+    rotular();
+    tb.addEventListener('click', function () {
+      var t = oscuro() ? 'light' : 'dark';
+      root.setAttribute('data-theme', t);
+      try { localStorage.setItem('rz-tema', t); } catch (e) {}
+      rotular();
+    });
+  }
+
   /* ------------------------------------------------------------------ */
   if (root.classList.contains('intro-open')) openWorld(); else enter();
 })();
